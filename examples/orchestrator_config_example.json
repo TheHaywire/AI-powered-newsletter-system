@@ -1,0 +1,41 @@
+{
+  "newsletter_theme": "Technology & Innovation",
+  "output_formats": ["markdown", "html", "plain_text"],
+  "schedule": {
+    "frequency": "weekly",
+    "day": "friday",
+    "time": "09:00"
+  },
+  "quality_thresholds": {
+    "min_articles": 8,
+    "min_relevance_score": 0.6,
+    "max_bias_score": 0.7,
+    "min_fact_check_score": 0.8,
+    "min_word_count": 500,
+    "max_word_count": 3000
+  },
+  "output_directory": "output",
+  "archive_directory": "archive",
+  "newsletter_settings": {
+    "include_summary": true,
+    "include_key_insights": true,
+    "include_source_attribution": true,
+    "include_reading_time": true,
+    "max_articles_per_section": 5,
+    "max_insights_per_section": 3
+  },
+  "email_settings": {
+    "enable_email_distribution": true,
+    "smtp_server": "smtp.gmail.com",
+    "smtp_port": 587,
+    "sender_email": "your-email@gmail.com",
+    "sender_password": "your-app-password",
+    "recipient_list": []
+  },
+  "monitoring": {
+    "enable_logging": true,
+    "log_level": "INFO",
+    "save_intermediate_results": true,
+    "performance_tracking": true
+  }
+} 

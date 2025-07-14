@@ -1,0 +1,60 @@
+{
+  "sources": {
+    "tech_news": [
+      "https://techcrunch.com/feed/",
+      "https://www.theverge.com/rss/index.xml",
+      "https://feeds.arstechnica.com/arstechnica/index",
+      "https://www.wired.com/feed/rss",
+      "https://www.engadget.com/rss.xml"
+    ],
+    "business_news": [
+      "https://feeds.bloomberg.com/markets/news.rss",
+      "https://www.ft.com/rss/home",
+      "https://feeds.reuters.com/reuters/businessNews",
+      "https://www.cnbc.com/id/100003114/device/rss/rss.html"
+    ],
+    "ai_ml_news": [
+      "https://www.artificialintelligence-news.com/feed/",
+      "https://machinelearningmastery.com/feed/",
+      "https://distill.pub/rss.xml"
+    ],
+    "startup_news": [
+      "https://www.crunchbase.com/feed/",
+      "https://www.techstars.com/feed"
+    ],
+    "general_news": [
+      "https://feeds.bbci.co.uk/news/rss.xml",
+      "https://rss.cnn.com/rss/edition.rss",
+      "https://feeds.npr.org/1001/rss.xml"
+    ]
+  },
+  "keywords": [
+    "artificial intelligence",
+    "machine learning",
+    "startup",
+    "technology",
+    "innovation",
+    "business",
+    "finance",
+    "cybersecurity",
+    "blockchain",
+    "cloud computing",
+    "data science",
+    "automation",
+    "robotics",
+    "quantum computing",
+    "sustainable technology"
+  ],
+  "max_articles_per_source": 15,
+  "date_range_days": 7,
+  "min_article_length": 100,
+  "excluded_domains": [
+    "example.com",
+    "test.com"
+  ],
+  "api_keys": {
+    "news_api": "2a1663b6af254eb184719e666a40be47",
+    "twitter_api": "",
+    "reddit_api": ""
+  }
+} 
