@@ -30,6 +30,65 @@
 └─ Topic Discovery   └─ Relevance Scoring  └─ Quality Control   └─ Analytics
 ```
 
+## 📊 System Architecture & Flow
+
+### System Flow Diagram
+
+```mermaid
+flowchart TD
+    A[User/Trigger] -->|Runs main.py| B(Newsletter Orchestrator)
+    B --> C(Research Engine)
+    C -->|Discover Topics| D(Trending APIs: Twitter, Reddit, Google Trends)
+    C -->|Collect Articles| E(RSS Feeds)
+    C -->|Collect Articles| F(NewsAPI.org)
+    B --> G(Analysis Engine)
+    G -->|Analyze| H(Sentiment, Bias, Fact-Check, Relevance)
+    B --> I(Creation Engine)
+    I -->|Summarize & Format| J(Newsletter: Markdown, HTML, Plaintext)
+    B --> K(Email Distributor)
+    K -->|Send| L(Subscribers)
+    J --> M(Output Folder)
+    B --> N(Logs, Reports, Quality Checks)
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+    style G fill:#ffb,stroke:#333,stroke-width:2px
+    style I fill:#fbf,stroke:#333,stroke-width:2px
+    style K fill:#bff,stroke:#333,stroke-width:2px
+```
+
+### Entity-Relationship Diagram
+
+```mermaid
+erDiagram
+    USER ||--o{ SUBSCRIBER : manages
+    SUBSCRIBER }o--|| EMAIL_DISTRIBUTOR : receives
+    NEWSLETTER_ORCHESTRATOR ||--o{ RESEARCH_ENGINE : uses
+    RESEARCH_ENGINE ||--o{ ARTICLE : collects
+    RESEARCH_ENGINE ||--o{ TOPIC : discovers
+    RESEARCH_ENGINE ||--o{ SOURCE : queries
+    NEWSLETTER_ORCHESTRATOR ||--o{ ANALYSIS_ENGINE : uses
+    ANALYSIS_ENGINE ||--o{ ANALYSIS_RESULT : produces
+    NEWSLETTER_ORCHESTRATOR ||--o{ CREATION_ENGINE : uses
+    CREATION_ENGINE ||--o{ NEWSLETTER : creates
+    NEWSLETTER ||--o{ SECTION : contains
+    SECTION ||--o{ ARTICLE : summarizes
+    NEWSLETTER_ORCHESTRATOR ||--o{ EMAIL_DISTRIBUTOR : uses
+    EMAIL_DISTRIBUTOR ||--o{ EMAIL : sends
+```
+
+## High-Level Architecture
+
+- **Research Engine**: Discovers trending topics, collects articles from RSS feeds and NewsAPI.org.
+- **Analysis Engine**: Analyzes articles for sentiment, bias, fact-checking, and relevance.
+- **Creation Engine**: Summarizes and formats articles into a newsletter (Markdown, HTML, Plaintext).
+- **Orchestrator**: Coordinates the workflow, manages quality checks, and saves outputs.
+- **Email Distributor**: Sends newsletters to subscribers via email.
+- **Config/Examples/Docs**: All configuration, sample scripts, and documentation are organized for easy onboarding and extension.
+
+---
+
+For more details, see `docs/ARCHITECTURE.md` and `docs/DEPLOYMENT.md`.
+
 ## 📦 Installation
 
 ### Prerequisites
