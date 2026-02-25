@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>AI Newsletter</title>
+<style>
+:root {
+  --accent: #425CE5;
+  --accent-light: #5B73FF;
+  --bg: #000000;
+  --bg-secondary: #1C1C1E;
+  --bg-tertiary: #2C2C2E;
+  --bg-card: rgba(255,255,255,0.06);
+  --text: #FFFFFF;
+  --text-secondary: #8E8E93;
+  --text-tertiary: #636366;
+  --green: #30D158;
+  --red: #FF453A;
+  --orange: #FF9F0A;
+  --blue: #0A84FF;
+  --purple: #BF5AF2;
+  --yellow: #FFD60A;
+  --separator: rgba(255,255,255,0.08);
+  --safe-top: env(safe-area-inset-top, 20px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --tab-height: 80px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── App Shell ─────── */
+.app { display: flex; flex-direction: column; min-height: 100vh; max-width: 430px; margin: 0 auto; position: relative; }
+.screen { flex: 1; padding-bottom: var(--tab-height); overflow-y: auto; display: none; }
+.screen.active { display: block; }
+.nav-title { font-size: 34px; font-weight: 800; padding: 16px 20px 8px; letter-spacing: -0.5px; }
+.section-title { font-size: 20px; font-weight: 700; padding: 20px 20px 12px; }
+
+/* ─── Tab Bar ─────── */
+.tab-bar {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 430px;
+  background: rgba(28,28,30,0.92);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  display: flex; justify-content: space-around; align-items: center;
+  padding: 6px 0 calc(6px + var(--safe-bottom));
+  border-top: 0.5px solid var(--separator);
+  z-index: 100;
+  height: var(--tab-height);
+}
+.tab {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  background: none; border: none; color: var(--text-tertiary);
+  font-size: 10px; font-weight: 500; padding: 4px 12px; cursor: pointer;
+  transition: color 0.2s;
+}
+.tab.active { color: var(--accent); }
+.tab svg { width: 24px; height: 24px; fill: currentColor; }
+
+/* ─── Login ─────── */
+.login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 32px; min-height: 100vh; }
+.login-icon { font-size: 64px; margin-bottom: 16px; }
+.login-title { font-size: 28px; font-weight: 800; }
+.login-subtitle { color: var(--text-secondary); font-size: 15px; margin: 8px 0 32px; }
+.input-field {
+  width: 100%; padding: 14px 16px; background: var(--bg-secondary); border: 1px solid var(--separator);
+  border-radius: 12px; color: var(--text); font-size: 16px; margin-bottom: 12px; outline: none;
+}
+.input-field:focus { border-color: var(--accent); }
+.input-field::placeholder { color: var(--text-tertiary); }
+.btn-primary {
+  width: 100%; padding: 16px; background: var(--accent); color: white; border: none;
+  border-radius: 14px; font-size: 17px; font-weight: 600; cursor: pointer; margin-top: 8px;
+  transition: opacity 0.2s;
+}
+.btn-primary:active { opacity: 0.8; }
+.btn-primary:disabled { opacity: 0.4; cursor: default; }
+.login-hint { color: var(--text-tertiary); font-size: 12px; margin-top: 24px; }
+.login-error { color: var(--red); font-size: 13px; margin-top: 8px; display: none; }
+
+/* ─── Stats Grid ─────── */
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 20px 8px; }
+.stat-card {
+  background: var(--bg-card); backdrop-filter: blur(10px);
+  border-radius: 16px; padding: 16px; text-align: center;
+  border: 0.5px solid var(--separator);
+}
+.stat-icon { font-size: 24px; margin-bottom: 6px; }
+.stat-value { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
+.stat-label { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+
+/* ─── Cards ─────── */
+.card {
+  background: var(--bg-card); border-radius: 14px; padding: 16px; margin: 0 20px 10px;
+  border: 0.5px solid var(--separator); cursor: pointer; transition: background 0.15s;
+}
+.card:active { background: rgba(255,255,255,0.1); }
+.card-title { font-size: 16px; font-weight: 700; line-height: 1.3; margin-bottom: 4px; }
+.card-subtitle { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
+.card-meta { display: flex; gap: 12px; flex-wrap: wrap; }
+.meta-tag { font-size: 11px; color: var(--accent-light); display: flex; align-items: center; gap: 3px; }
+.meta-item { font-size: 11px; color: var(--text-tertiary); display: flex; align-items: center; gap: 3px; }
+
+/* ─── Status Badge ─────── */
+.badge {
+  font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px;
+  display: inline-block;
+}
+.badge-published { background: rgba(48,209,88,0.15); color: var(--green); }
+.badge-draft { background: rgba(255,159,10,0.15); color: var(--orange); }
+
+/* ─── Detail View ─────── */
+.detail-header { padding: 16px 20px; }
+.detail-theme { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.detail-title { font-size: 26px; font-weight: 800; line-height: 1.2; letter-spacing: -0.3px; }
+.detail-subtitle { font-size: 16px; color: var(--text-secondary); margin-top: 6px; }
+.back-btn {
+  background: none; border: none; color: var(--accent); font-size: 17px;
+  padding: 12px 20px; cursor: pointer; display: flex; align-items: center; gap: 4px;
+}
+
+.metrics-scroll { display: flex; gap: 8px; padding: 0 20px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.metrics-scroll::-webkit-scrollbar { display: none; }
+.metric-chip {
+  flex-shrink: 0; font-size: 12px; color: var(--text-secondary); padding: 6px 12px;
+  background: var(--bg-card); border-radius: 20px; white-space: nowrap;
+  border: 0.5px solid var(--separator);
+}
+
+.summary-card {
+  background: var(--bg-card); border-radius: 14px; padding: 16px; margin: 16px 20px;
+  border: 0.5px solid var(--separator);
+}
+.summary-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.summary-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+
+.insight-item { display: flex; gap: 8px; padding: 6px 20px; align-items: flex-start; }
+.insight-icon { font-size: 14px; flex-shrink: 0; padding-top: 1px; }
+.insight-text { font-size: 14px; line-height: 1.4; }
+
+.article-card {
+  background: var(--bg-card); border-radius: 12px; padding: 14px; margin: 0 20px 8px;
+  border: 0.5px solid var(--separator);
+}
+.article-card h4 { font-size: 15px; font-weight: 600; line-height: 1.3; margin-bottom: 6px; }
+.article-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.4; margin-bottom: 8px;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.article-footer { display: flex; justify-content: space-between; align-items: center; }
+.article-source { font-size: 11px; color: var(--accent-light); }
+.sentiment { font-size: 11px; display: flex; align-items: center; gap: 4px; }
+.sentiment-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+
+/* ─── Generate ─────── */
+.generate-header { text-align: center; padding: 24px 20px 0; }
+.generate-icon { font-size: 48px; margin-bottom: 12px; }
+.generate-title { font-size: 22px; font-weight: 700; }
+.generate-desc { font-size: 14px; color: var(--text-secondary); margin: 8px 20px 0; line-height: 1.4; }
+.theme-input-wrap { padding: 20px; }
+.theme-input-wrap label { font-size: 16px; font-weight: 700; display: block; margin-bottom: 8px; }
+.theme-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 20px 16px; }
+.chip {
+  padding: 8px 14px; border-radius: 20px; font-size: 13px;
+  background: var(--bg-tertiary); border: none; color: var(--text); cursor: pointer;
+  transition: all 0.2s;
+}
+.chip.selected { background: rgba(66,92,229,0.2); color: var(--accent-light); }
+.generate-btn {
+  margin: 8px 20px; padding: 16px; background: var(--accent); color: white; border: none;
+  border-radius: 14px; font-size: 17px; font-weight: 600; width: calc(100% - 40px); cursor: pointer;
+}
+.generate-btn:disabled { opacity: 0.4; }
+.generate-result {
+  margin: 16px 20px; padding: 20px; background: var(--bg-card); border-radius: 14px;
+  text-align: center; border: 0.5px solid var(--separator); display: none;
+}
+.result-icon { font-size: 32px; margin-bottom: 8px; }
+.result-msg { font-size: 14px; color: var(--text-secondary); line-height: 1.4; }
+
+.pipeline { margin: 20px; }
+.pipeline-title { font-size: 14px; font-weight: 700; color: var(--text-secondary); margin-bottom: 12px; }
+.pipeline-step { display: flex; gap: 12px; align-items: center; margin-bottom: 14px; }
+.pipeline-num {
+  width: 36px; height: 36px; border-radius: 50%; background: rgba(66,92,229,0.15);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  font-size: 14px; color: var(--accent);
+}
+.pipeline-info h4 { font-size: 14px; font-weight: 600; }
+.pipeline-info p { font-size: 12px; color: var(--text-secondary); }
+
+/* ─── Subscribers ─────── */
+.sub-stats { padding: 0 20px; }
+.sub-stat-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 16px; background: var(--bg-card); border-radius: 12px; margin-bottom: 8px;
+  border: 0.5px solid var(--separator);
+}
+.sub-stat-label { font-size: 15px; display: flex; align-items: center; gap: 8px; }
+.sub-stat-value { font-size: 17px; font-weight: 700; }
+.subscriber-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 20px; border-bottom: 0.5px solid var(--separator);
+}
+.sub-name { font-size: 15px; font-weight: 600; }
+.sub-email { font-size: 12px; color: var(--text-secondary); }
+.sub-cats { font-size: 11px; color: var(--accent-light); margin-top: 2px; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* ─── Analytics ─────── */
+.analytics-section {
+  background: var(--bg-card); border-radius: 16px; padding: 20px; margin: 0 20px 16px;
+  border: 0.5px solid var(--separator);
+}
+.analytics-section h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.delivery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.delivery-stat { text-align: center; }
+.delivery-stat .val { font-size: 20px; font-weight: 800; }
+.delivery-stat .lbl { font-size: 11px; color: var(--text-secondary); }
+.rings { display: flex; justify-content: space-around; padding: 8px 0; }
+.ring-item { text-align: center; }
+.ring-label { font-size: 11px; color: var(--text-secondary); margin-top: 6px; }
+.ring-svg { width: 70px; height: 70px; }
+.ring-bg { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 6; }
+.ring-fill { fill: none; stroke-width: 6; stroke-linecap: round; transform: rotate(-90deg); transform-origin: center; }
+.ring-text { font-size: 12px; font-weight: 700; fill: white; text-anchor: middle; dominant-baseline: central; }
+.content-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 0.5px solid var(--separator); }
+.content-row:last-child { border: none; }
+.content-label { font-size: 14px; color: var(--text-secondary); }
+.content-value { font-size: 14px; font-weight: 600; }
+.cat-row { display: flex; justify-content: space-between; padding: 6px 0; }
+.cat-name { font-size: 14px; }
+.cat-count { font-size: 14px; font-weight: 700; color: var(--accent); }
+
+/* ─── Settings ─────── */
+.settings-section { padding: 0 20px; margin-bottom: 24px; }
+.settings-label { font-size: 13px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; padding-left: 4px; }
+.settings-group { background: var(--bg-secondary); border-radius: 12px; overflow: hidden; }
+.settings-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 16px; border-bottom: 0.5px solid var(--separator);
+}
+.settings-row:last-child { border: none; }
+.settings-row-label { font-size: 15px; display: flex; align-items: center; gap: 8px; }
+.settings-row-value { font-size: 15px; color: var(--text-secondary); }
+.toggle {
+  width: 51px; height: 31px; border-radius: 16px; background: var(--text-tertiary);
+  position: relative; cursor: pointer; transition: background 0.3s;
+}
+.toggle.on { background: var(--green); }
+.toggle::after {
+  content: ''; position: absolute; width: 27px; height: 27px; background: white;
+  border-radius: 50%; top: 2px; left: 2px; transition: transform 0.3s;
+}
+.toggle.on::after { transform: translateX(20px); }
+.btn-destructive {
+  width: 100%; padding: 14px; background: none; border: none; color: var(--red);
+  font-size: 17px; cursor: pointer; text-align: center;
+}
+
+/* ─── Loading ─────── */
+.loading { display: flex; justify-content: center; padding: 60px; }
+.spinner {
+  width: 32px; height: 32px; border: 3px solid var(--separator);
+  border-top-color: var(--accent); border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.search-bar {
+  margin: 0 20px 12px; padding: 10px 14px; background: var(--bg-secondary);
+  border-radius: 12px; border: 1px solid var(--separator); color: var(--text);
+  font-size: 15px; width: calc(100% - 40px); outline: none;
+}
+.search-bar::placeholder { color: var(--text-tertiary); }
+.search-bar:focus { border-color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+
+<!-- ═══ LOGIN SCREEN ═══ -->
+<div id="login-screen" class="login-screen">
+  <div class="login-icon">📰</div>
+  <div class="login-title">AI Newsletter</div>
+  <div class="login-subtitle">Your AI-powered newsletter platform</div>
+  <input class="input-field" id="username" type="text" placeholder="Username" autocapitalize="none" value="admin">
+  <input class="input-field" id="password" type="password" placeholder="Password" value="admin123">
+  <div class="login-error" id="login-error">Invalid credentials</div>
+  <button class="btn-primary" id="login-btn" onclick="doLogin()">Sign In</button>
+  <div class="login-hint">Demo: admin / admin123</div>
+</div>
+
+<!-- ═══ MAIN APP ═══ -->
+<div id="main-app" style="display:none;">
+
+<!-- Dashboard -->
+<div id="screen-dashboard" class="screen active">
+  <div class="nav-title">Dashboard</div>
+  <div id="dashboard-content"><div class="loading"><div class="spinner"></div></div></div>
+</div>
+
+<!-- Newsletters -->
+<div id="screen-newsletters" class="screen">
+  <div class="nav-title">Newsletters</div>
+  <input class="search-bar" id="search-input" placeholder="Search newsletters..." oninput="filterNewsletters()">
+  <div id="newsletters-list"><div class="loading"><div class="spinner"></div></div></div>
+</div>
+
+<!-- Generate -->
+<div id="screen-generate" class="screen">
+  <div class="nav-title">Generate</div>
+  <div class="generate-header">
+    <div class="generate-icon">✨</div>
+    <div class="generate-title">Generate Newsletter</div>
+  </div>
+  <div class="generate-desc">AI will research trending topics, analyze articles, and create a professional newsletter.</div>
+  <div class="theme-input-wrap">
+    <label>Theme</label>
+    <input class="input-field" id="theme-input" placeholder="Enter newsletter theme..." oninput="updateGenerateBtn()">
+  </div>
+  <div style="padding: 0 20px 8px; font-size: 14px; font-weight: 600; color: var(--text-secondary);">Suggested Themes</div>
+  <div class="theme-chips" id="theme-chips"></div>
+  <button class="generate-btn" id="generate-btn" disabled onclick="doGenerate()">✨ Generate Newsletter</button>
+  <div class="generate-result" id="generate-result">
+    <div class="result-icon" id="result-icon">✅</div>
+    <div class="result-msg" id="result-msg"></div>
+  </div>
+  <div class="pipeline">
+    <div class="pipeline-title">Generation Pipeline</div>
+    <div class="pipeline-step"><div class="pipeline-num">🔍</div><div class="pipeline-info"><h4>1. Research</h4><p>Discover trending topics & collect articles</p></div></div>
+    <div class="pipeline-step"><div class="pipeline-num">📊</div><div class="pipeline-info"><h4>2. Analysis</h4><p>Sentiment, relevance & bias analysis</p></div></div>
+    <div class="pipeline-step"><div class="pipeline-num">✍️</div><div class="pipeline-info"><h4>3. Creation</h4><p>AI-powered content generation</p></div></div>
+    <div class="pipeline-step"><div class="pipeline-num">✅</div><div class="pipeline-info"><h4>4. Quality Check</h4><p>Validate quality thresholds</p></div></div>
+  </div>
+</div>
+
+<!-- Subscribers -->
+<div id="screen-subscribers" class="screen">
+  <div class="nav-title">Subscribers</div>
+  <div id="subscribers-content"><div class="loading"><div class="spinner"></div></div></div>
+</div>
+
+<!-- Settings -->
+<div id="screen-settings" class="screen">
+  <div class="nav-title">Settings</div>
+  <div id="settings-content"></div>
+</div>
+
+<!-- Newsletter Detail -->
+<div id="screen-detail" class="screen">
+  <button class="back-btn" onclick="goBack()">‹ Back</button>
+  <div id="detail-content"></div>
+</div>
+
+<!-- Tab Bar -->
+<div class="tab-bar">
+  <button class="tab active" onclick="switchTab('dashboard')">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+    Dashboard
+  </button>
+  <button class="tab" onclick="switchTab('newsletters')">
+    <svg viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 2v12h16V6H4zm2 2h12v2H6V8zm0 4h8v2H6v-2z"/></svg>
+    Newsletters
+  </button>
+  <button class="tab" onclick="switchTab('generate')">
+    <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/></svg>
+    Generate
+  </button>
+  <button class="tab" onclick="switchTab('subscribers')">
+    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+    Subscribers
+  </button>
+  <button class="tab" onclick="switchTab('settings')">
+    <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 0 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1 1 12 8.4a3.6 3.6 0 0 1 0 7.2z"/></svg>
+    Settings
+  </button>
+</div>
+
+</div>
+</div>
+
+<script>
+const API = '';
+let allNewsletters = [];
+let currentTab = 'dashboard';
+let previousTab = 'newsletters';
+
+// ─── Auth ──────────────────────────────────────────────────────
+async function doLogin() {
+  const btn = document.getElementById('login-btn');
+  const errEl = document.getElementById('login-error');
+  btn.textContent = 'Signing in...';
+  btn.disabled = true;
+  errEl.style.display = 'none';
+
+  try {
+    const res = await fetch(API + '/api/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('main-app').style.display = 'block';
+      loadDashboard();
+    } else {
+      errEl.textContent = data.message || 'Login failed';
+      errEl.style.display = 'block';
+    }
+  } catch(e) {
+    errEl.textContent = 'Connection error';
+    errEl.style.display = 'block';
+  }
+  btn.textContent = 'Sign In';
+  btn.disabled = false;
+}
+
+// ─── Navigation ────────────────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('screen-' + tab).classList.add('active');
+  document.querySelectorAll('.tab')[['dashboard','newsletters','generate','subscribers','settings'].indexOf(tab)].classList.add('active');
+  currentTab = tab;
+  if (tab === 'dashboard') loadDashboard();
+  if (tab === 'newsletters') loadNewsletters();
+  if (tab === 'subscribers') loadSubscribers();
+  if (tab === 'settings') renderSettings();
+}
+
+function goBack() {
+  switchTab(previousTab);
+}
+
+function showDetail(id) {
+  previousTab = currentTab;
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-detail').classList.add('active');
+  loadDetail(id);
+}
+
+// ─── Dashboard ─────────────────────────────────────────────────
+async function loadDashboard() {
+  try {
+    const res = await fetch(API + '/api/dashboard');
+    const data = await res.json();
+    const el = document.getElementById('dashboard-content');
+    el.innerHTML = `
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-icon">📰</div><div class="stat-value">${data.total_newsletters}</div><div class="stat-label">Newsletters</div></div>
+        <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-value">${data.total_subscribers}</div><div class="stat-label">Subscribers</div></div>
+        <div class="stat-card"><div class="stat-icon">📄</div><div class="stat-value">${data.total_articles}</div><div class="stat-label">Articles</div></div>
+        <div class="stat-card"><div class="stat-icon">✈️</div><div class="stat-value">${Math.round(data.delivery_rate*100)}%</div><div class="stat-label">Delivery Rate</div></div>
+      </div>
+      <div class="section-title">Recent Newsletters</div>
+      ${data.recent_newsletters.map(nl => `
+        <div class="card" onclick="showDetail('${nl.id}')">
+          <div style="display:flex;justify-content:space-between;align-items:start;">
+            <div class="card-title">${nl.title}</div>
+            <span class="badge badge-${nl.status}">${nl.status}</span>
+          </div>
+          ${nl.theme ? `<div class="card-subtitle">${nl.theme}</div>` : ''}
+          <div class="card-meta">
+            ${nl.metrics ? `<span class="meta-item">📄 ${nl.metrics.article_count} articles</span><span class="meta-item">⏱ ${nl.metrics.reading_time_minutes} min read</span>` : ''}
+          </div>
+        </div>
+      `).join('')}
+    `;
+  } catch(e) { console.error(e); }
+}
+
+// ─── Newsletters ───────────────────────────────────────────────
+async function loadNewsletters() {
+  try {
+    const res = await fetch(API + '/api/newsletters');
+    allNewsletters = await res.json();
+    renderNewsletters(allNewsletters);
+  } catch(e) { console.error(e); }
+}
+
+function renderNewsletters(list) {
+  document.getElementById('newsletters-list').innerHTML = list.map(nl => `
+    <div class="card" onclick="showDetail('${nl.id}')">
+      <div style="display:flex;justify-content:space-between;align-items:start;">
+        <div class="card-title" style="flex:1;margin-right:8px;">${nl.title}</div>
+        <span class="badge badge-${nl.status}">${nl.status}</span>
+      </div>
+      ${nl.subtitle ? `<div class="card-subtitle">${nl.subtitle}</div>` : ''}
+      <div class="card-meta">
+        ${nl.theme ? `<span class="meta-tag">🏷 ${nl.theme}</span>` : ''}
+        ${nl.metrics ? `<span class="meta-item">📄 ${nl.metrics.article_count} articles</span><span class="meta-item">⏱ ${nl.metrics.reading_time_minutes} min</span>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterNewsletters() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  const filtered = allNewsletters.filter(nl =>
+    nl.title.toLowerCase().includes(q) || (nl.theme||'').toLowerCase().includes(q)
+  );
+  renderNewsletters(filtered);
+}
+
+// ─── Detail ────────────────────────────────────────────────────
+async function loadDetail(id) {
+  try {
+    const res = await fetch(API + '/api/newsletters/' + id);
+    const nl = await res.json();
+    const el = document.getElementById('detail-content');
+
+    const sentimentColor = s => s > 0.2 ? 'var(--green)' : s < -0.2 ? 'var(--red)' : 'var(--text-tertiary)';
+    const sentimentLabel = s => s > 0.2 ? 'Positive' : s < -0.2 ? 'Negative' : 'Neutral';
+
+    el.innerHTML = `
+      <div class="detail-header">
+        ${nl.theme ? `<div class="detail-theme">${nl.theme}</div>` : ''}
+        <div class="detail-title">${nl.title}</div>
+        ${nl.subtitle ? `<div class="detail-subtitle">${nl.subtitle}</div>` : ''}
+      </div>
+
+      ${nl.metrics ? `
+      <div class="metrics-scroll">
+        <span class="metric-chip">📄 ${nl.metrics.article_count} articles</span>
+        <span class="metric-chip">📝 ${nl.metrics.word_count} words</span>
+        <span class="metric-chip">⏱ ${nl.metrics.reading_time_minutes} min read</span>
+        <span class="metric-chip">🏢 ${nl.metrics.source_count} sources</span>
+        ${nl.metrics.quality_score ? `<span class="metric-chip">⭐ ${Math.round(nl.metrics.quality_score*100)}% quality</span>` : ''}
+      </div>` : ''}
+
+      ${nl.summary ? `
+      <div class="summary-card">
+        <h3>Summary</h3>
+        <p>${nl.summary}</p>
+      </div>` : ''}
+
+      ${nl.key_insights && nl.key_insights.length ? `
+      <div class="section-title">Key Insights</div>
+      ${nl.key_insights.map(i => `
+        <div class="insight-item">
+          <span class="insight-icon">💡</span>
+          <span class="insight-text">${i}</span>
+        </div>
+      `).join('')}` : ''}
+
+      ${nl.sections.map(sec => `
+        <div class="section-title">${sec.title}</div>
+        ${sec.articles.map(art => `
+          <div class="article-card">
+            <h4>${art.title}</h4>
+            <p>${art.content}</p>
+            <div class="article-footer">
+              <span class="article-source">🌐 ${art.source}</span>
+              ${art.sentiment_score !== undefined ? `
+              <span class="sentiment">
+                <span class="sentiment-dot" style="background:${sentimentColor(art.sentiment_score)}"></span>
+                <span style="color:${sentimentColor(art.sentiment_score)}">${sentimentLabel(art.sentiment_score)}</span>
+              </span>` : ''}
+            </div>
+          </div>
+        `).join('')}
+      `).join('')}
+    `;
+  } catch(e) { console.error(e); }
+}
+
+// ─── Generate ──────────────────────────────────────────────────
+const themes = ['Technology & AI', 'Business & Startups', 'Science & Innovation', 'Blockchain & Web3', 'Climate & Sustainability', 'Health & Biotech'];
+
+function initGenerate() {
+  document.getElementById('theme-chips').innerHTML = themes.map(t =>
+    `<button class="chip" onclick="selectTheme('${t}')">${t}</button>`
+  ).join('');
+}
+
+function selectTheme(t) {
+  document.getElementById('theme-input').value = t;
+  document.querySelectorAll('.chip').forEach(c => c.classList.toggle('selected', c.textContent === t));
+  updateGenerateBtn();
+}
+
+function updateGenerateBtn() {
+  document.getElementById('generate-btn').disabled = !document.getElementById('theme-input').value.trim();
+}
+
+async function doGenerate() {
+  const btn = document.getElementById('generate-btn');
+  const result = document.getElementById('generate-result');
+  const theme = document.getElementById('theme-input').value;
+  btn.disabled = true;
+  btn.textContent = '⏳ Generating...';
+  result.style.display = 'none';
+
+  try {
+    const res = await fetch(API + '/api/generate', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({theme})
+    });
+    const data = await res.json();
+    document.getElementById('result-icon').textContent = data.success ? '✅' : '❌';
+    document.getElementById('result-msg').textContent = data.message;
+    result.style.display = 'block';
+  } catch(e) {
+    document.getElementById('result-icon').textContent = '❌';
+    document.getElementById('result-msg').textContent = 'Connection error';
+    result.style.display = 'block';
+  }
+  btn.textContent = '✨ Generate Newsletter';
+  btn.disabled = false;
+}
+
+// ─── Subscribers ───────────────────────────────────────────────
+async function loadSubscribers() {
+  try {
+    const res = await fetch(API + '/api/subscribers');
+    const data = await res.json();
+    const active = data.subscribers.filter(s => s.is_active).length;
+    const el = document.getElementById('subscribers-content');
+    el.innerHTML = `
+      <div class="sub-stats">
+        <div class="sub-stat-row"><span class="sub-stat-label">👥 Total Subscribers</span><span class="sub-stat-value" style="color:var(--accent)">${data.total}</span></div>
+        <div class="sub-stat-row"><span class="sub-stat-label">✅ Active</span><span class="sub-stat-value" style="color:var(--green)">${active}</span></div>
+      </div>
+      <div class="section-title">Subscribers</div>
+      ${data.subscribers.map(s => `
+        <div class="subscriber-row">
+          <div>
+            <div class="sub-name">${s.name || s.email}</div>
+            ${s.name ? `<div class="sub-email">${s.email}</div>` : ''}
+            ${s.preferences && s.preferences.categories ? `<div class="sub-cats">${s.preferences.categories.join(', ')}</div>` : ''}
+          </div>
+          <div class="status-dot" style="background:${s.is_active ? 'var(--green)' : 'var(--text-tertiary)'}"></div>
+        </div>
+      `).join('')}
+    `;
+  } catch(e) { console.error(e); }
+}
+
+// ─── Analytics (in Settings tab for this preview) ──────────────
+async function renderSettings() {
+  // Load analytics too
+  let analyticsHTML = '';
+  try {
+    const res = await fetch(API + '/api/analytics');
+    const a = await res.json();
+    const ringSVG = (pct, color, label) => {
+      const r = 27, c = 2*Math.PI*r, offset = c - (pct * c);
+      return `<div class="ring-item">
+        <svg class="ring-svg" viewBox="0 0 70 70">
+          <circle class="ring-bg" cx="35" cy="35" r="${r}"/>
+          <circle class="ring-fill" cx="35" cy="35" r="${r}" stroke="${color}" stroke-dasharray="${c}" stroke-dashoffset="${offset}"/>
+          <text class="ring-text" x="35" y="35">${Math.round(pct*100)}%</text>
+        </svg>
+        <div class="ring-label">${label}</div>
+      </div>`;
+    };
+
+    analyticsHTML = `
+      <div class="section-title">Analytics</div>
+      <div class="analytics-section">
+        <h3>✈️ Delivery</h3>
+        <div class="delivery-grid">
+          <div class="delivery-stat"><div class="val">${a.delivery_stats.total_sent}</div><div class="lbl">Sent</div></div>
+          <div class="delivery-stat"><div class="val">${a.delivery_stats.delivered}</div><div class="lbl">Delivered</div></div>
+          <div class="delivery-stat"><div class="val">${a.delivery_stats.failed}</div><div class="lbl">Failed</div></div>
+          <div class="delivery-stat"><div class="val">${Math.round(a.delivery_stats.delivery_rate*100)}%</div><div class="lbl">Rate</div></div>
+        </div>
+      </div>
+      <div class="analytics-section">
+        <h3>👆 Engagement</h3>
+        <div class="rings">
+          ${ringSVG(a.engagement_stats.open_rate, 'var(--blue)', 'Opens')}
+          ${ringSVG(a.engagement_stats.click_rate, 'var(--green)', 'Clicks')}
+          ${ringSVG(a.engagement_stats.unsubscribe_rate, 'var(--red)', 'Unsubs')}
+        </div>
+      </div>
+      <div class="analytics-section">
+        <h3>📊 Content Quality</h3>
+        <div class="content-row"><span class="content-label">Avg. Articles</span><span class="content-value">${a.content_stats.average_articles}</span></div>
+        <div class="content-row"><span class="content-label">Avg. Word Count</span><span class="content-value">${Math.round(a.content_stats.average_word_count)}</span></div>
+        <div class="content-row"><span class="content-label">Avg. Reading Time</span><span class="content-value">${a.content_stats.average_reading_time} min</span></div>
+        <div class="content-row"><span class="content-label">Quality Score</span><span class="content-value">${Math.round(a.content_stats.average_quality_score*100)}%</span></div>
+      </div>
+      <div class="analytics-section">
+        <h3>🏷 Top Categories</h3>
+        ${a.content_stats.top_categories.map(c => `<div class="cat-row"><span class="cat-name">${c.category}</span><span class="cat-count">${c.count}</span></div>`).join('')}
+      </div>
+    `;
+  } catch(e) {}
+
+  document.getElementById('settings-content').innerHTML = `
+    ${analyticsHTML}
+    <div class="section-title">Settings</div>
+    <div class="settings-section">
+      <div class="settings-label">Account</div>
+      <div class="settings-group">
+        <div class="settings-row"><span class="settings-row-label">👤 admin</span><span style="color:var(--green);font-size:13px;">Logged in</span></div>
+      </div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-label">Server</div>
+      <div class="settings-group">
+        <div class="settings-row"><span class="settings-row-label">🖥 Server URL</span><span class="settings-row-value">localhost:5001</span></div>
+      </div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-label">Newsletter</div>
+      <div class="settings-group">
+        <div class="settings-row"><span class="settings-row-label">🎨 Default Theme</span><span class="settings-row-value">Technology & AI</span></div>
+      </div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-label">Notifications</div>
+      <div class="settings-group">
+        <div class="settings-row"><span class="settings-row-label">🔔 Push Notifications</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="settings-row"><span class="settings-row-label">🔄 Auto Refresh</span><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+      </div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-label">About</div>
+      <div class="settings-group">
+        <div class="settings-row"><span class="settings-row-label">Version</span><span class="settings-row-value">1.0.0</span></div>
+        <div class="settings-row"><span class="settings-row-label">Platform</span><span class="settings-row-value">iOS</span></div>
+      </div>
+    </div>
+    <div class="settings-section">
+      <button class="btn-destructive" onclick="document.getElementById('main-app').style.display='none';document.getElementById('login-screen').style.display='flex';">Sign Out</button>
+    </div>
+  `;
+}
+
+// ─── Init ──────────────────────────────────────────────────────
+initGenerate();
+document.getElementById('password').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+</script>
+</body>
+</html>
