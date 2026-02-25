@@ -1,0 +1,444 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000001 /* AINewsletterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000001; };
+		A10000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000002; };
+		A10000003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20000003; };
+		A10000004 /* Newsletter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000004; };
+		A10000005 /* Subscriber.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000005; };
+		A10000006 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000006; };
+		A10000007 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000007; };
+		A10000008 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000008; };
+		A10000009 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000009; };
+		A10000010 /* NewsletterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010; };
+		A10000011 /* NewsletterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000011; };
+		A10000012 /* SubscribersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000012; };
+		A10000013 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000013; };
+		A10000014 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000014; };
+		A10000015 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000015; };
+		A10000016 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000016; };
+		A10000017 /* NewsletterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000017; };
+		A10000018 /* SubscriberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000018; };
+		A10000019 /* AnalyticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000019; };
+		A10000020 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000020; };
+		A10000021 /* GenerateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000021; };
+		A10000022 /* GenerateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000022; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A20000000 /* AINewsletter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AINewsletter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A20000001 /* AINewsletterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AINewsletterApp.swift; sourceTree = "<group>"; };
+		A20000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A20000003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A20000004 /* Newsletter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Newsletter.swift; sourceTree = "<group>"; };
+		A20000005 /* Subscriber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subscriber.swift; sourceTree = "<group>"; };
+		A20000006 /* Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
+		A20000007 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		A20000008 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		A20000009 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		A20000010 /* NewsletterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterListView.swift; sourceTree = "<group>"; };
+		A20000011 /* NewsletterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterDetailView.swift; sourceTree = "<group>"; };
+		A20000012 /* SubscribersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribersView.swift; sourceTree = "<group>"; };
+		A20000013 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
+		A20000014 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		A20000015 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A20000016 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		A20000017 /* NewsletterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsletterViewModel.swift; sourceTree = "<group>"; };
+		A20000018 /* SubscriberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriberViewModel.swift; sourceTree = "<group>"; };
+		A20000019 /* AnalyticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsViewModel.swift; sourceTree = "<group>"; };
+		A20000020 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		A20000021 /* GenerateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateView.swift; sourceTree = "<group>"; };
+		A20000022 /* GenerateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateViewModel.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A30000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A40000000 = {
+			isa = PBXGroup;
+			children = (
+				A40000001 /* AINewsletter */,
+				A40000006 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A40000001 /* AINewsletter */ = {
+			isa = PBXGroup;
+			children = (
+				A20000001 /* AINewsletterApp.swift */,
+				A20000002 /* ContentView.swift */,
+				A40000002 /* Models */,
+				A40000003 /* Views */,
+				A40000004 /* ViewModels */,
+				A40000005 /* Services */,
+				A20000003 /* Assets.xcassets */,
+			);
+			path = AINewsletter;
+			sourceTree = "<group>";
+		};
+		A40000002 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A20000004 /* Newsletter.swift */,
+				A20000005 /* Subscriber.swift */,
+				A20000006 /* Analytics.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A40000003 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A20000009 /* DashboardView.swift */,
+				A20000010 /* NewsletterListView.swift */,
+				A20000011 /* NewsletterDetailView.swift */,
+				A20000012 /* SubscribersView.swift */,
+				A20000013 /* AnalyticsView.swift */,
+				A20000014 /* SettingsView.swift */,
+				A20000015 /* LoginView.swift */,
+				A20000021 /* GenerateView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A40000004 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A20000016 /* DashboardViewModel.swift */,
+				A20000017 /* NewsletterViewModel.swift */,
+				A20000018 /* SubscriberViewModel.swift */,
+				A20000019 /* AnalyticsViewModel.swift */,
+				A20000020 /* SettingsViewModel.swift */,
+				A20000022 /* GenerateViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A40000005 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A20000007 /* APIService.swift */,
+				A20000008 /* AuthService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A40000006 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A20000000 /* AINewsletter.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A50000001 /* AINewsletter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A70000003 /* Build configuration list for PBXNativeTarget "AINewsletter" */;
+			buildPhases = (
+				A60000001 /* Sources */,
+				A30000001 /* Frameworks */,
+				A60000002 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AINewsletter;
+			productName = AINewsletter;
+			productReference = A20000000 /* AINewsletter.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A80000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					A50000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = A70000001 /* Build configuration list for PBXProject "AINewsletter" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A40000000;
+			productRefGroup = A40000006 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A50000001 /* AINewsletter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A60000002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000003 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A60000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000001 /* AINewsletterApp.swift in Sources */,
+				A10000002 /* ContentView.swift in Sources */,
+				A10000004 /* Newsletter.swift in Sources */,
+				A10000005 /* Subscriber.swift in Sources */,
+				A10000006 /* Analytics.swift in Sources */,
+				A10000007 /* APIService.swift in Sources */,
+				A10000008 /* AuthService.swift in Sources */,
+				A10000009 /* DashboardView.swift in Sources */,
+				A10000010 /* NewsletterListView.swift in Sources */,
+				A10000011 /* NewsletterDetailView.swift in Sources */,
+				A10000012 /* SubscribersView.swift in Sources */,
+				A10000013 /* AnalyticsView.swift in Sources */,
+				A10000014 /* SettingsView.swift in Sources */,
+				A10000015 /* LoginView.swift in Sources */,
+				A10000016 /* DashboardViewModel.swift in Sources */,
+				A10000017 /* NewsletterViewModel.swift in Sources */,
+				A10000018 /* SubscriberViewModel.swift in Sources */,
+				A10000019 /* AnalyticsViewModel.swift in Sources */,
+				A10000020 /* SettingsViewModel.swift in Sources */,
+				A10000021 /* GenerateView.swift in Sources */,
+				A10000022 /* GenerateViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A90000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A90000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A90000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"AINewsletter/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ainewsletter.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A90000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"AINewsletter/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ainewsletter.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A70000001 /* Build configuration list for PBXProject "AINewsletter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A90000001 /* Debug */,
+				A90000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A70000003 /* Build configuration list for PBXNativeTarget "AINewsletter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A90000003 /* Debug */,
+				A90000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = A80000001 /* Project object */;
+}
